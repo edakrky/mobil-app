@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  Image,
-  ActivityIndicator,
+import {StyleSheet, TouchableOpacity, View, Text, Image, ActivityIndicator,
 } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Boxes } from '../components/Boxes';
@@ -197,13 +191,21 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  body: { flex: 5, backgroundColor: 'grey', width: '100%', marginTop: '2rem' },
-  footer: { flex: 0.5, backgroundColor: '#fff', width: '100%' },
+  body: {
+  flex: 5, 
+  backgroundColor: 'grey', 
+  width: '100%', 
+  marginTop: '2rem' },
+
+
+  footer: {
+  flex: 0.5, 
+  backgroundColor: '#fff', 
+  width: '100%' },
 
   sagUst: {
   width: "%100",
   height:"%100",
   justifyContent:"center",
-
-  }
+  },
 });

@@ -14,8 +14,8 @@ import React, { useState } from 'react';
 
 export default function Profile({ navigation }) {
 
-const [name, setName] = useState("Eda");
-const [surname, setSurname] = useState("Karakaya");
+const [name, setName] = useState("");
+const [surname, setSurname] = useState("");
 const [age, setAge] = useState("");
 const [kilo, setKilo] = useState("");
 const [boy, setBoy] = useState("");
