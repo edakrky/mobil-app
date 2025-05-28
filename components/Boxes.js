@@ -4,10 +4,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-export const Boxes = () => {
+export const Boxes = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.box}>
+
+      <TouchableOpacity style={styles.box}  onPress={() => navigation.navigate('MyMedicines')}>
       <View style={{backgroundColor: "white", height:30, width: 30, justifyContent:"center", alignItems: "center", borderRadius:15}}>
       <AntDesign name="medicinebox" size={20} color="#075F5A"/>
       </View>
@@ -16,7 +17,7 @@ export const Boxes = () => {
 
 
 
-      <TouchableOpacity style={styles.box}>
+      <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('NewMedicine')} >
       <View style={{backgroundColor: "white", height:26, width: 26, justifyContent:"center", alignItems: "center", borderRadius:13}}>
       <Entypo name="plus" size={25} color="green" />
       </View>

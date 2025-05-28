@@ -111,8 +111,8 @@ export default function Home({ navigation }) {
       </View>
 
       <View style={styles.body}>
-        <TopBox />
-        <Boxes />
+        <TopBox navigation={navigation} />
+        <Boxes navigation={navigation} />
       </View>
 
       <View style={styles.footer} />

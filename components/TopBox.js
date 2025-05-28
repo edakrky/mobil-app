@@ -7,7 +7,7 @@ import {
   useWindowDimensions
 } from 'react-native';
 
-export const TopBox = () => {
+export const TopBox = ({}) => {
   const { width: screenWidth } = useWindowDimensions();
 
   const totalPad = 7 * 2 + 10;
