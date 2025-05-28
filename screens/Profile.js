@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   View,
   Text,
@@ -8,8 +7,19 @@ import {
   Platform,
 } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { TextInput } from 'react-native';
+import React, { useState } from 'react';
+
 
 export default function Profile({ navigation }) {
+
+const [name, setName] = useState("Eda");
+const [surname, setSurname] = useState("Karakaya");
+const [age, setAge] = useState("");
+const [kilo, setKilo] = useState("");
+const [boy, setBoy] = useState("");
+
   return (
     <View style={styles.container}>
       <View style={styles.headerBar} />
@@ -26,15 +36,43 @@ export default function Profile({ navigation }) {
         style={styles.profileImage}
       />
 
-      <Text style={styles.name}>Eda Karakaya</Text>
+      <Text style={styles.name}>{name} {surname}</Text>
 
       <View style={styles.infoRow}>
-        <FontAwesome name="graduation-cap" size={18} color="#555" />
+        <FontAwesome6 name="hand-holding-medical" size={18} color="#555" />
         <Text style={styles.infoText}>
-          Yıldız Technical University
-        </Text>
-      </View>
+          Lütfen Bilgilerinizi Giriniz
+        </Text> 
     </View>
+
+<TextInput style={styles.InfBox} placeholder="AD"value={name} onChangeText={(e) => setName(e.toUpperCase())} placeholderTextColor={"#6B5D4E"} maxLength={15}/>
+
+
+<TextInput style={styles.InfBox} placeholder="SOYAD"value={surname} onChangeText={(e) => setSurname(e.toUpperCase())} placeholderTextColor={"#6B5D4E"} maxLength={15}/>
+
+<TextInput style={styles.InfBox} placeholder="YAŞ" placeholderTextColor="#6B5D4E" keyboardType="numeric" value={age} onChangeText={setAge}
+/>
+
+<TextInput style={styles.InfBox} placeholder="KİLO" placeholderTextColor="#6B5D4E" keyboardType="numeric" value={kilo} onChangeText={setKilo}
+/>
+
+<TextInput style={styles.InfBox} placeholder="BOY" placeholderTextColor="#6B5D4E" keyboardType="numeric" value={boy} onChangeText={setBoy}
+/>
+
+<TouchableOpacity
+  style={{ backgroundColor: "#58A555", padding: 12, borderRadius: 10}}
+  onPress={() => {
+    console.log("AD:", name);
+    console.log("SOYAD:", surname);
+    console.log("YAŞ:", age);
+    console.log("BOY:", height);
+    console.log("KİLO:", weight);
+  }}
+>
+  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Kaydet</Text>
+</TouchableOpacity>
+
+</View>
   );
 }
 
@@ -78,5 +116,22 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     fontSize: 16,
     color: '#555',
+  },
+
+  InfBox: {
+  height: 50,
+  width: 200,
+  borderRadius: 10,
+  borderWidth: 2,
+  padding: 15,
+  margin: 20,
+  },
+
+  footer: {
+  width: "100%", 
+  height:"100%", 
+  backgroundColor: "pink",
+  alignItems: "center",
+  justifyContent: "center",
   },
 });

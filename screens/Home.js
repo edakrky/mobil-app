@@ -11,6 +11,7 @@ import {
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Boxes } from '../components/Boxes';
 import { TopBox } from '../components/TopBox';
+import {Logo} from "./Logo";
 
 const healthTips = [
   'Düzenli su içmek vücudun toksinlerden arınmasına yardımcı olur.',
@@ -73,13 +74,18 @@ export default function Home({ navigation }) {
       <StatusBar style="auto" />
 
       <View style={styles.header}>
-        <Text style={styles.greeting}>Merhaba, Kullanıcı</Text>
+      <Logo/>
+  
+<View style={styles.sagUst}>
         <TouchableOpacity
           style={styles.profile}
           onPress={() => navigation.navigate('Profile')}
         >
-          <FontAwesome name="user-circle-o" size={40} color="#1D302F" />
+          <FontAwesome name="user-circle-o" size={40} color="#274C5E"/>
         </TouchableOpacity>
+        <Text style={styles.greeting}>Merhaba, Kullanıcı</Text>
+</View>
+
       </View>
 
       <View style={styles.motivation}>
@@ -131,12 +137,15 @@ const styles = StyleSheet.create({
   greeting: {
     fontWeight: '600',
     color: '#333',
-    fontSize: 20,
-    marginTop: 15,
+    fontSize: 12,
+    alignItems: "flex-end",
+    marginBottom: 40,
   },
   profile: {
     padding: 10,
-    marginTop: 15,
+    marginTop: 35,
+    alignItems: "flex-end",
+    justifyContent: "center",
   },
 
   motivation: {
@@ -182,6 +191,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 20,
   },
+
   refreshText: {
     color: '#F98239',
     fontWeight: '600',
@@ -189,4 +199,11 @@ const styles = StyleSheet.create({
 
   body: { flex: 5, backgroundColor: 'grey', width: '100%', marginTop: '2rem' },
   footer: { flex: 0.5, backgroundColor: '#fff', width: '100%' },
+
+  sagUst: {
+  width: "%100",
+  height:"%100",
+  justifyContent:"center",
+
+  }
 });
