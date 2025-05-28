@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Platform,
-} from 'react-native';
+import {View,Text,TouchableOpacity,StyleSheet,Image,Platform} from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { TextInput } from 'react-native';
@@ -95,7 +88,7 @@ const styles = StyleSheet.create({
   },
   profileImage: {
     width: 120,
-    height: 120,
+    height: 140,
     borderRadius: 60,
     borderWidth: 4,
     borderColor: '#fff',

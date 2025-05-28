@@ -1,33 +1,58 @@
-// screens/MyMedicines.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import {View, Text, FlatList, StyleSheet, TouchableOpacity, Alert, Platform} from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function MyMedicines({navigation, route}) {
+export default function MyMedicines({ navigation }) {
   const [medicines, setMedicines] = useState([]);
-  useEffect(() => {
-    if (route.params?.newMedicine) {
-      if (!medicines.some(med => med.id === route.params.newMedicine.id)) {
-        setMedicines(prev => [...prev, route.params.newMedicine]);
-      }
-      navigation.setParams({ newMedicine: undefined });
-    }
-  }, [route.params?.newMedicine, medicines, navigation]);
 
+  useEffect(() => {
+    const loadMedicines = async () => {
+      try {
+        const storedData = await AsyncStorage.getItem('medicines');
+        const parsedData = storedData ? JSON.parse(storedData) : [];
+        setMedicines(parsedData);
+      } catch (error) {
+        console.error('Veriler alınamadı', error);
+      }
+    };
+
+    const unsubscribe = navigation.addListener('focus', loadMedicines);
+    return unsubscribe;
+  }, [navigation]);
+
+  const deleteMedicine = (id) => {
+    Alert.alert(
+      "Bu ilacı silmek istediğinize emin misiniz?",
+      [{ text: "İptal", style: "cancel" },
+        {
+          text: "Sil", style: "destructive", onPress: async () => {
+            try {
+              const filtered = medicines.filter((item) => item.id !== id);
+              await AsyncStorage.setItem('medicines', JSON.stringify(filtered));
+              setMedicines(filtered);
+            } catch (error) {
+              console.error('Silme hatası:', error);
+            }
+          }
+        }
+      ]
+    );
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.medicineItem}>
       <Text style={styles.medicineName}>{item.name}</Text>
+      <TouchableOpacity onPress={() => deleteMedicine(item.id)}>
+        <FontAwesome name="trash" size={22} color="#B00020" />
+      </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.headerBar}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.goBack()}
-        >
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <FontAwesome name="arrow-left" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Kayıtlı İlaçlar</Text>
@@ -48,45 +73,46 @@ export default function MyMedicines({navigation, route}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+  container: { flex: 1, backgroundColor: '#fff' },
   headerBar: {
-    width: '100%',
-    height: 100,
-    backgroundColor: '#F98239',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Platform.OS === 'ios' ? 50 : 20,
+  width: '100%',
+  height: 100,
+  backgroundColor: '#F98239',
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingTop: Platform.OS === 'ios' ? 50 : 20,
   },
+
   backBtn: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 40,
-    left: 20,
-    zIndex: 2,
+  position: 'absolute',
+  top: Platform.OS === 'ios' ? 50 : 40,
+  left: 20,
+  zIndex: 2,
   },
+
   headerTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  emptyText: {
-    fontSize: 16,
-    color: '#777',
-    marginTop: 50,
-    textAlign: 'center',
-  },
+  fontSize: 22,
+  fontWeight: 'bold',
+  color: '#fff' },
+
+  emptyText: { 
+  fontSize: 16, 
+  color: '#777', 
+  marginTop: 50, 
+  textAlign: 'center' },
+
   medicineItem: {
-    backgroundColor: '#DFF0D8',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
+  backgroundColor: '#DFF0D8',
+  borderRadius: 10,
+   padding: 15,
+  marginBottom: 15,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   },
-  medicineName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    color: '#333',
-  },
+
+  medicineName: { 
+  fontSize: 18,
+  fontWeight: 'bold', 
+  color: '#333' },
 });
